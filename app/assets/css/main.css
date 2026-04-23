@@ -1,0 +1,188 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  --font-display: 'VT323', 'Space Mono', ui-monospace, monospace;
+
+  --color-primary-50: #fff1f2;
+  --color-primary-100: #ffe4e6;
+  --color-primary-200: #fecdd3;
+  --color-primary-300: #fda4af;
+  --color-primary-400: #fb7185;
+  --color-primary-500: #f43f5e;
+  --color-primary-600: #e11d48;
+  --color-primary-700: #be123c;
+  --color-primary-800: #9f1239;
+  --color-primary-900: #881337;
+  --color-primary-950: #4c0519;
+}
+
+:root {
+  color-scheme: dark;
+  --card-w: 78px;
+  --card-h: 110px;
+  --card-off: 28px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --card-w: 104px;
+    --card-h: 148px;
+    --card-off: 38px;
+  }
+}
+
+html, body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+html,
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(76, 5, 25, 0.25), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(20, 20, 30, 0.6), transparent 70%),
+    #08080b;
+  color: #e7e5e4;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2;
+}
+
+/* Grim glitch utility classes */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.04em;
+  color: #f5f5f4;
+  text-shadow:
+    0 0 6px rgba(244, 63, 94, 0.35),
+    0 0 12px rgba(244, 63, 94, 0.18);
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.glitch-text::before {
+  color: #f43f5e;
+  transform: translate(1px, 0);
+  animation: glitch-shift-r 4.2s steps(1, end) infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-text::after {
+  color: #22d3ee;
+  transform: translate(-1px, 0);
+  animation: glitch-shift-l 5.7s steps(1, end) infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-shift-r {
+  0%, 92%, 100% { transform: translate(1px, 0); }
+  93% { transform: translate(3px, -1px); }
+  95% { transform: translate(-2px, 1px); }
+  97% { transform: translate(4px, 0); }
+}
+
+@keyframes glitch-shift-l {
+  0%, 88%, 100% { transform: translate(-1px, 0); }
+  89% { transform: translate(-3px, 1px); }
+  91% { transform: translate(2px, -1px); }
+  93% { transform: translate(-4px, 0); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.7; }
+  43% { opacity: 1; }
+  47% { opacity: 0.4; }
+  48% { opacity: 1; }
+}
+
+.flicker {
+  animation: flicker 6s infinite;
+}
+
+/* Card styling */
+.card-face {
+  background:
+    linear-gradient(135deg, #1c1c20 0%, #0e0e12 100%);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  box-shadow:
+    inset 0 0 12px rgba(244, 63, 94, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.card-back {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #18181b 0px,
+      #18181b 6px,
+      #1f1f24 6px,
+      #1f1f24 12px
+    );
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  box-shadow:
+    inset 0 0 14px rgba(244, 63, 94, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(244, 63, 94, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.suit-red {
+  color: #f43f5e;
+  text-shadow: 0 0 8px rgba(244, 63, 94, 0.55);
+}
+
+.suit-black {
+  color: #f5f5f4;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+}
+

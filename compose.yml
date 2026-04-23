@@ -1,0 +1,15 @@
+services:
+  blackjack:
+    build: .
+    image: blackjack:latest
+    pull_policy: build
+    container_name: blackjack
+    ports:
+      - "3000"
+    networks:
+      - nginx-proxy-manager_default
+    restart: unless-stopped
+
+networks:
+  nginx-proxy-manager_default:
+    external: true
