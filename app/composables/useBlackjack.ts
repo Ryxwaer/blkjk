@@ -91,13 +91,15 @@ export const useBlackjack = () => {
   }
 
   function adjustBet(delta: number) {
-    if (phase.value !== 'betting') return
+    if (phase.value !== 'betting' && phase.value !== 'resolved') return
     bet.value = Math.max(5, bet.value + delta)
+    lastBet.value = bet.value
   }
 
   function setBet(value: number) {
-    if (phase.value !== 'betting') return
+    if (phase.value !== 'betting' && phase.value !== 'resolved') return
     bet.value = Math.max(5, Math.floor(value))
+    lastBet.value = bet.value
   }
 
   async function deal() {

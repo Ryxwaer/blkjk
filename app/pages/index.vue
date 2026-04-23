@@ -76,8 +76,13 @@ function onKey(e: KeyboardEvent) {
   if (phase === 'resolved') {
     if (isSpace || isEnter) {
       e.preventDefault()
-      game.nextRound()
       game.deal()
+    } else if (k === 'ArrowUp') {
+      e.preventDefault()
+      game.adjustBet(e.shiftKey ? 100 : 25)
+    } else if (k === 'ArrowDown') {
+      e.preventDefault()
+      game.adjustBet(e.shiftKey ? -100 : -25)
     }
   }
 }
@@ -103,6 +108,24 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       </h1>
 
       <div class="flex items-baseline gap-5 sm:gap-10">
+        <div class="hidden sm:block text-right leading-none">
+          <div class="text-[10px] uppercase tracking-[0.35em] text-stone-500 mb-0.5">
+            hands
+          </div>
+          <div class="font-display text-2xl text-stone-300 tabular-nums leading-none">
+            {{ game.handsPlayed.value }}
+          </div>
+        </div>
+
+        <div class="hidden sm:block text-right leading-none">
+          <div class="text-[10px] uppercase tracking-[0.35em] text-stone-500 mb-0.5">
+            rate
+          </div>
+          <div class="font-display text-2xl text-stone-300 tabular-nums leading-none">
+            {{ winRate }}
+          </div>
+        </div>
+
         <Motion
           :key="game.chips.value"
           as="div"
@@ -113,15 +136,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         >
           ${{ game.chips.value.toLocaleString() }}
         </Motion>
-
-        <div class="hidden sm:block text-right leading-none">
-          <div class="text-[10px] uppercase tracking-[0.35em] text-stone-500 mb-0.5">
-            rate
-          </div>
-          <div class="font-display text-2xl text-stone-300 tabular-nums leading-none">
-            {{ winRate }}
-          </div>
-        </div>
       </div>
     </header>
 
