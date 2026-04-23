@@ -43,7 +43,7 @@ const isResolved = computed(() => game.phase.value === 'resolved')
 
 <template>
   <div
-    class="relative z-20 px-3 sm:px-6 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pb-6"
+    class="relative z-20 shrink-0 px-3 sm:px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+2.5rem)] sm:pb-6"
   >
     <div class="mx-auto max-w-3xl">
       <!-- Chip drawer (mobile) — slides up from above bar -->

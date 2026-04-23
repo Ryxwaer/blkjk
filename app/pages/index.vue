@@ -89,7 +89,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 <template>
   <div
     class="relative w-full overflow-hidden flex flex-col"
-    style="min-height: 100svh;"
+    style="height: 100dvh; max-height: 100dvh;"
   >
     <!-- HUD -->
     <header
@@ -125,8 +125,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       </div>
     </header>
 
-    <!-- Table -->
-    <main class="relative z-10 flex-1 flex flex-col items-center justify-center gap-5 sm:gap-12 px-3 py-3 sm:py-6">
+    <!-- Table — gets the upper 60-65% of the screen -->
+    <main class="relative z-10 flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-12 px-3 py-2 sm:py-6 overflow-hidden">
       <Hand
         :cards="game.dealer.value"
         :total="game.dealerTotal.value"

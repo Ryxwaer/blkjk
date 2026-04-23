@@ -35,23 +35,29 @@
 
 html, body {
   -webkit-tap-highlight-color: transparent;
-}
-
-body {
+  -webkit-touch-callout: none;
+  height: 100%;
+  overflow: hidden;
   overscroll-behavior: none;
   touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-html,
 body {
+  position: fixed;
+  inset: 0;
   background:
     radial-gradient(ellipse at top, rgba(76, 5, 25, 0.25), transparent 60%),
     radial-gradient(ellipse at bottom, rgba(20, 20, 30, 0.6), transparent 70%),
     #08080b;
   color: #e7e5e4;
   font-family: var(--font-sans);
-  min-height: 100vh;
-  overflow-x: hidden;
+}
+
+#__nuxt {
+  height: 100%;
+  overflow: hidden;
 }
 
 body::before {
