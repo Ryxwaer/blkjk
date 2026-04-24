@@ -78,11 +78,18 @@ export const useBlackjack = () => {
   const dealerTotal = computed(() => handTotals(dealer.value).best)
   const dealerVisibleTotal = computed(() => handTotals(dealer.value.filter(c => !c.hidden)).best)
 
+  const SHOE_DECKS = 6
+  const SHOE_SIZE = SHOE_DECKS * 52
+  const RESHUFFLE_AT = 52
+
   function ensureShoe() {
-    if (shoe.value.length < 20) {
-      shoe.value = buildShoe(6)
+    if (shoe.value.length < RESHUFFLE_AT) {
+      shoe.value = buildShoe(SHOE_DECKS)
     }
   }
+
+  const shoeRemaining = computed(() => shoe.value.length)
+  const shoePenetration = computed(() => 1 - shoe.value.length / SHOE_SIZE)
 
   function draw(hidden = false): Card {
     ensureShoe()
@@ -210,6 +217,10 @@ export const useBlackjack = () => {
     } else if (result === 'lose') {
       message.value = 'lose'
     }
+    // Doubling only applies to the hand it was used on — restore the
+    // visible bet to whatever was originally staked so the next hand
+    // starts fresh.
+    bet.value = lastBet.value
   }
 
   function nextRound() {
@@ -238,6 +249,8 @@ export const useBlackjack = () => {
     playerTotal,
     dealerTotal,
     dealerVisibleTotal,
+    shoeRemaining,
+    shoePenetration,
     adjustBet,
     setBet,
     deal,
